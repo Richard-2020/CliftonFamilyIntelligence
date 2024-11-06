@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Transcript Chatbot</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <script src="main.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">YouTube Transcript Chatbot</h1>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <label for="channel-input" class="block text-gray-700 font-medium mb-2">Enter a YouTube channel name:</label>
+      <div class="flex">
+        <input type="text" id="channel-input" class="rounded-l-md border-r-0 border-gray-300 py-2 px-3 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Channel name">
+        <button id="process-channel-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-r-md">Process</button>
+      </div>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div class="flex flex-col h-96">
+        <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
+        <div id="output" class="border-t border-gray-300 pt-4">
+          <div class="flex">
+            <input type="text" id="message-input" class="rounded-l-md border-r-0 border-gray-300 py-2 px-3 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type your message">
+            <button id="send-button" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-r-md">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script>
+    const channelInput = document.getElementById('channel-input');
+    const processButton = document.getElementById('process-button');
+    const chatInput = document.getElementById('chat-input');
+    const sendButton = document.getElementById('send-button');
+    const chatContainer = document.getElementById('chat-container');
+
+    let currentSessionId = null;
+
+    processButton.addEventListener('click', async () => {
+      const channelName = channelInput.value.trim();
+      if (channelName) {
+        try {
+          const response = await axios.post('/api/channel', { channel_name: channelName });
+          currentSessionId = response.data.session_id;
+          appendChatMessage('Bot', 'Channel processed successfully. You can now start chatting!');
+        } catch (error) {
+          appendChatMessage('Bot', `Error processing channel: ${error.response.data.detail}`);
+        }
+      }
+    });
+
+    sendButton.addEventListener('click', async () => {
+      const message = chatInput.value.trim();
+      if (message && currentSessionId) {
+        try {
+          const response = await axios.post(`/api/chat/${currentSessionId}`, { message });
+          appendChatMessage('You', message);
+          appendChatMessage('Bot', response.data.response);
+          chatInput.value = '';
+        } catch (error) {
+          appendChatMessage('Bot', `Error sending message: ${error.response.data.detail}`);
+        }
+      }
+    });
+
+    function appendChatMessage(sender, message) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('flex', 'items-start');
+
+      if (sender === 'Bot') {
+        messageElement.innerHTML = `
+          <div class="bg-blue-500 text-white px-4 py-2 rounded-r-lg rounded-bl-lg max-w-xs">
+            <p>${message}</p>
+          </div>
+        `;
+      } else {
+        messageElement.innerHTML = `
+          <div class="bg-gray-200 text-gray-800 px-4 py-2 rounded-l-lg rounded-br-lg max-w-xs ml-auto">
+            <p>${message}</p>
+          </div>
+        `;
+      }
+
+      chatContainer.appendChild(messageElement);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  </script> -->
+</body>
+</html>

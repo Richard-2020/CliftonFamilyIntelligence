@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clifton Family Intelligence</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .channel-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #chat-container {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+
+        .message {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background-color: rgba(0, 0, 255, 0.694);
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #e9ecef;
+            color: #212529;
+        }
+
+        .system-message {
+            background-color: #ffc107;
+            color: #000;
+            text-align: center;
+            margin: 8px auto;
+        }
+
+        .error-message {
+            background-color: #dc3545;
+            color: white;
+            text-align: center;
+            margin: 8px auto;
+        }
+
+        .success-message {
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            margin: 8px auto;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="channel-section">
+            <h2>Clifton Family Intelligence</h2>
+            <div class="input-group">
+                <input type="text" id="channel-input" placeholder="Enter channel name...">
+                <button id="process-channel-btn">Process Channel</button>
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <h2>Message</h2>
+            <div id="chat-container"></div>
+            
+            <div class="input-group">
+                <input type="text" id="message-input" placeholder="Type your message..." disabled>
+                <button id="send-button" disabled>Send</button>
+            </div>
+        </div>
+
+        <div id="output"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
