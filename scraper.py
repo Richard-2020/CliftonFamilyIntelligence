@@ -28,7 +28,7 @@ class YouTubeScraper:
         except Exception as e:
             raise Exception(f"Error getting channel ID: {str(e)}")
 
-    def get_channel_videos(self, channel_id: str, max_results: int = 10) -> List[Dict]:
+    def get_channel_videos(self, channel_id: str, max_results: int = 7) -> List[Dict]:
         """Get latest videos from channel."""
         videos = []
         next_page_token = None
@@ -100,7 +100,7 @@ class YouTubeScraper:
         
         return combined_transcript
 
-    def process_channel(self, channel_name: str, max_videos: int = 10) -> str:
+    def process_channel(self, channel_name: str, max_videos: int = 7) -> str:
         """Process entire channel and return combined transcript text."""
         try:
             channel_id = self.get_channel_id(channel_name)
