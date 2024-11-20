@@ -107,7 +107,7 @@ class ChatApp {
         this.addMessage("System", "Processing channel...", "loading");
 
         try {
-            const response = await fetch('https://cliftonfamilyintelligence.herokuapp.com/api/channel', {
+            const response = await fetch('https://cliftonfamilyintelligence-ae9c2e95d097.herokuapp.com/api/channel', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -156,7 +156,7 @@ class ChatApp {
         this.elements.messageInput.disabled = true;  // Also disable input while processing
     
         try {
-            const response = await fetch(`https://cliftonfamilyintelligence.herokuapp.com/api/chat/${this.currentSessionId}`, {
+            const response = await fetch(`https://cliftonfamilyintelligence-ae9c2e95d097.herokuapp.com//api/chat/${this.currentSessionId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
