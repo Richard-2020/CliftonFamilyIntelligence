@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clifton Family Intelligence</title>
+    <title>Clifton Family AI</title>
     <style>
         body {
             font-family: Georgia, serif;
             margin: 0;
-            padding: 20px;
-            background-color: #F0D9E7;
+            padding: 10px;
+            background-color: #F4F3ED;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
             background-color: #DFEEE4;
             border-radius: 8px;
@@ -117,12 +117,139 @@
             background-color: #fff;
             min-height: 100px;
         }
+
+/* Your other original CSS rules here */
+
+/* Media Queries for iPhones */
+
+/* iPhone SE, 5, 5S, 5C */
+@media only screen and (min-width: 320px) and (max-width: 359px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 10px;
+    }
+    #chat-container {
+        height: 300px;
+    }
+    .message {
+        max-width: 90%;
+    }
+    input[type="text"] {
+        font-size: 14px;
+    }
+    button {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
+
+/* iPhone 6, 7, 8 */
+@media only screen and (min-width: 360px) and (max-width: 374px) {
+    body {
+        padding: 12px;
+    }
+    .container {
+        padding: 15px;
+    }
+    #chat-container {
+        height: 350px;
+    }
+}
+
+/* iPhone X, XS, 11 Pro, 12 Mini */
+@media only screen and (min-width: 375px) and (max-width: 389px) {
+    .container {
+        padding: 15px;
+    }
+    #chat-container {
+        height: 400px;
+    }
+}
+
+/* iPhone 12, 12 Pro, 13, 14 */
+@media only screen and (min-width: 390px) and (max-width: 428px) {
+    .container {
+        padding: 16px;
+    }
+    #chat-container {
+        height: 450px;
+    }
+}
+
+/* iPhone Pro Max models */
+/* @media only screen and (min-width: 428px) and (max-width: 767px) {
+    .container {
+        padding: 18px;
+    }
+    #chat-container {
+        height: 500px;
+    }
+} */
+
+/* Tablets (iPad Mini, iPad) */
+/* @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    body {
+        padding: 30px;
+    }
+    .container {
+        max-width: 90%;
+        padding: 25px;
+    }
+    #chat-container {
+        height: 600px;
+    }
+    .message {
+        max-width: 70%;
+    }
+    input[type="text"] {
+        font-size: 18px;
+        padding: 10px 15px;
+    }
+    button {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+} */
+
+/* iPad Pro */
+/* @media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    body {
+        padding: 40px;
+    }
+    .container {
+        max-width: 85%;
+        padding: 30px;
+    }
+    #chat-container {
+        height: 700px;
+    }
+    .message {
+        max-width: 60%;
+    }
+    input[type="text"] {
+        font-size: 20px;
+        padding: 12px 18px;
+    }
+    button {
+        font-size: 20px;
+        padding: 12px 24px;
+    }
+} */
+
+/* Portrait and Landscape orientations */
+@media (orientation: landscape) {
+    #chat-container {
+        height: 50vh;
+    }
+}
     </style>
 </head>
 <body>
     <div class="container">
         <div class="channel-section">
-            <h2>Clifton Family Intelligence</h2>
+            <h2>Clifton Family AI</h2>
             <div class="input-group">
                 <input type="text" id="channel-input" placeholder="Enter channel name...">
                 <button id="process-channel-btn">Process Channel</button>
@@ -130,7 +257,7 @@
         </div>
 
         <div class="chat-section">
-            <h2>Message</h2>
+            <h2>Chat</h2>
             <div id="chat-container"></div>
             
             <div class="input-group">
@@ -142,6 +269,6 @@
         <div id="output"></div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="static/main.js"></script>
 </body>
 </html>
