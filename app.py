@@ -103,6 +103,20 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def read_root():
     return FileResponse("home.html")
 
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import os
+    
+    # Get port from Heroku environment variable or default to 8000
+    port = int(os.environ.get("PORT", 8000))
+    
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
+
+
+
+#A ctivating virtual environment
+
+# python3 -m venv venv
+# Source venv/bin/activate  # On Windows, use `my_venv\Scripts\activate`
