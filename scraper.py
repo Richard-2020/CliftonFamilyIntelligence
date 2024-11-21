@@ -7,9 +7,14 @@ from utils import sanitize_text
 
 class YouTubeScraper:
     def __init__(self, api_key: str):
-        self.youtube = build('youtube', 'v3', developerKey=api_key)
-        self.transcripts_dir = 'transcripts'
-        os.makedirs(self.transcripts_dir, exist_ok=True)
+        self.youtube = build('youtube', 'v3', developerKey=api_key or os.environ.get('YOUTUBE_API_KEY'))
+        self.transcripts_dir = os.environ.get('TRANSCRIPTS_DIR', 'transcripts')
+        try:
+            os.makedirs(self.transcripts_dir, exist_ok=True)
+        except PermissionError:
+            print(f"Warning: Could not create {self.transcripts_dir}. Using current directory.")
+            self.transcripts_dir = '.'
+        
 
     def get_channel_id(self, channel_name: str) -> str:
         """Get channel ID from channel name."""
@@ -74,31 +79,62 @@ class YouTubeScraper:
         except Exception as e:
             print(f"Error fetching transcript for video {video_id}: {str(e)}")
             return None
-
+        
     def save_transcript(self, channel_name: str, videos: List[Dict]) -> str:
         """Save transcripts to file and return combined transcript text."""
-        filename = os.path.join(self.transcripts_dir, f"{sanitize_text(channel_name)}_transcripts.txt")
-        combined_transcript = ""
+        try:
+            # Use a temporary directory or a writable location in Heroku
+            filename = os.path.join('/tmp', f"{sanitize_text(channel_name)}_transcripts.txt")
+            
+            combined_transcript = ""
+            
+            with open(filename, 'w', encoding='utf-8') as f:
+                for video in videos:
+                    transcript = self.get_transcript(video['id'])
+                    content = f"""
+                    Video: {video['title']}
+                    ID: {video['id']}
+                    Published: {video['published_at']}
+                    
+                    Transcript:
+                    {transcript if transcript else 'No transcript available.'}
+                    
+                    {'=' * 50}
+                    
+                    """
+                    f.write(content)
+                    if transcript:
+                        combined_transcript += f"\nVideo: {video['title']}\n{transcript}\n"
+            
+            return combined_transcript
+        except Exception as e:
+            print(f"Error saving transcript: {e}")
+            return ""
+
+    # def save_transcript(self, channel_name: str, videos: List[Dict]) -> str:
+    #     """Save transcripts to file and return combined transcript text."""
+    #     filename = os.path.join(self.transcripts_dir, f"{sanitize_text(channel_name)}_transcripts.txt")
+    #     combined_transcript = ""
         
-        with open(filename, 'w', encoding='utf-8') as f:
-            for video in videos:
-                transcript = self.get_transcript(video['id'])
-                content = f"""
-                Video: {video['title']}
-                ID: {video['id']}
-                Published: {video['published_at']}
+    #     with open(filename, 'w', encoding='utf-8') as f:
+    #         for video in videos:
+    #             transcript = self.get_transcript(video['id'])
+    #             content = f"""
+    #             Video: {video['title']}
+    #             ID: {video['id']}
+    #             Published: {video['published_at']}
                 
-                Transcript:
-                {transcript if transcript else 'No transcript available.'}
+    #             Transcript:
+    #             {transcript if transcript else 'No transcript available.'}
                 
-                {'=' * 50}
+    #             {'=' * 50}
                 
-                """
-                f.write(content)
-                if transcript:
-                    combined_transcript += f"\nVideo: {video['title']}\n{transcript}\n"
+    #             """
+    #             f.write(content)
+    #             if transcript:
+    #                 combined_transcript += f"\nVideo: {video['title']}\n{transcript}\n"
         
-        return combined_transcript
+    #     return combined_transcript
 
     def process_channel(self, channel_name: str, max_videos: int = 7) -> str:
         """Process entire channel and return combined transcript text."""
