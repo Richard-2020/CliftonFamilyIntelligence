@@ -112,6 +112,7 @@ class ChatApp {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                
                 body: JSON.stringify({ channel_name: channelName })
             });
 
@@ -161,6 +162,7 @@ class ChatApp {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                
                 body: JSON.stringify({ message: message })
             });
     

@@ -15,14 +15,19 @@ load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI()
-
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "https://cliftonfamilyintelligence-ae9c2e95d097.herokuapp.com"
+]
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # Configure Gemini
@@ -104,14 +109,14 @@ async def read_root():
     return FileResponse("home.html")
 
 
-# if __name__ == "__main__":
-#     import uvicorn
-#     import os
+if __name__ == "__main__":
+    import uvicorn
+    import os
     
-#     # Get port from Heroku environment variable or default to 8000
-#     port = int(os.environ.get("PORT", 8000))
+    # Get port from Heroku environment variable or default to 8000
+    port = int(os.environ.get("PORT", 8000))
     
-#     uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 
