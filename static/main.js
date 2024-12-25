@@ -171,7 +171,7 @@ class ChatApp {
         if (!message) return;
     
         // Add user message to chat
-        this.addMessage("User", message);
+        this.addMessage("User", message, "user-message");
         this.elements.messageInput.value = '';
         this.isProcessing = true;
         this.elements.sendButton.disabled = true;
@@ -195,7 +195,7 @@ class ChatApp {
     
             // Only add bot message if we have a response
             if (data.response) {
-                this.addMessage("Bot", data.response);
+                this.addMessage("Bot", data.response, "bot-message");
             } else {
                 throw new Error("No response received from bot");
             }
