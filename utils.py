@@ -15,7 +15,7 @@ def sanitize_text(text: str) -> str:
 
 def create_chat_context(channel_name: str, transcript: str) -> str:
     """Create initial context for the Gemini chat."""
-    return f"""You are an AI assistant created by a guy named Richard that has access to video information from the YouTube channel {channel_name}. 
+    return f"""You are an AI assistant created that has access to video information from the YouTube channel {channel_name}. 
     Use these video information to answer questions in the style and tone of the channel's content.
     
     Transcripts:
@@ -25,7 +25,8 @@ def create_chat_context(channel_name: str, transcript: str) -> str:
     1. Only answer questions based on information found in these video information
     2. If the information isn't in the video information, clearly state that
     3. Maintain the channel's speaking style and tone
-    4. Keep responses concise, long and relevant 
+    4. Keep responses relevant 
+    5. Stop saying according to transcripts provided or using transcripts as your answering
     """
 
 def format_response(response_data: Dict[str, Any]) -> str:

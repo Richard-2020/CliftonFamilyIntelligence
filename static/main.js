@@ -42,15 +42,14 @@ class ChatApp {
         this.elements.sendButton.addEventListener('click', () => this.sendMessage());
     }
 
-    loadAndTypeText(text) {
-        // Clear previous content
-        this.elements.output.textContent = '';
+    loadAndTypeText(text, messageDiv) {
+        
         let currentChar = 0;
         
-        // Function to type each character
+        
         const typeChar = () => {
             if (currentChar < text.length) {
-                this.elements.output.textContent += text[currentChar];
+                messageDiv.textContent += text[currentChar];
                 currentChar++;
                 setTimeout(typeChar, this.typingSpeed);
             }
@@ -62,17 +61,28 @@ class ChatApp {
 
     
 
+    // addMessage(sender, text, className = '') {
+    //     const messageDiv = document.createElement('div');
+    //     messageDiv.className = `message ${sender.toLowerCase()}-message ${className}`;
+    //     messageDiv.textContent = text;
+    //     this.elements.chatContainer.appendChild(messageDiv);
+    //     this.elements.chatContainer.scrollTop = this.elements.chatContainer.scrollHeight;
+        
+
+    //     // If it's a bot message, type it out in the output area
+    //     if (sender.toLowerCase() === "bot") {
+    //         this.loadAndTypeText(text);
+    //     }
+    // }
+
     addMessage(sender, text, className = '') {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender.toLowerCase()}-message ${className}`;
-        messageDiv.textContent = text;
         this.elements.chatContainer.appendChild(messageDiv);
         this.elements.chatContainer.scrollTop = this.elements.chatContainer.scrollHeight;
 
-        // If it's a bot message, type it out in the output area
-        if (sender.toLowerCase() === "bot") {
-            this.loadAndTypeText(text);
-        }
+        this.loadAndTypeText(text, messageDiv);
+       
     }
     
 
@@ -98,10 +108,22 @@ class ChatApp {
             return;
         }
 
-        if (channelName != "NJFamilyChurch") {
-            this.addMessage("System", "Please Enter NJFamilyChurch.", "error-message");
+        const allowedChannels = [
+            "NJFamilyChurch",
+            "losangelesfamilychurchpro",
+            "Capitalfamilychurch",
+            "ManhattanFamilyChurch",
+            "hjartsandculture",
+            "peacestartswithme6420"
+        ];
+    
+        // Check if the channel name is in the allowed list
+        if (!allowedChannels.includes(channelName)) {
+            this.addMessage("System", "Please Enter FamiFed Channel.", "error-message");
             return;
         }
+        
+
         this.isProcessing = true;
         this.elements.processButton.disabled = true;
         this.addMessage("System", "Processing channel...", "loading");
@@ -112,7 +134,6 @@ class ChatApp {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                
                 body: JSON.stringify({ channel_name: channelName })
             });
 
@@ -162,7 +183,6 @@ class ChatApp {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                
                 body: JSON.stringify({ message: message })
             });
     
@@ -226,7 +246,7 @@ class ChatApp {
     //     }
     // }
 
-    //http://localhost:8000
+    
 }
 
 
