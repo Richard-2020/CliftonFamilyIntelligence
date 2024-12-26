@@ -104,7 +104,7 @@ class ChatApp {
         
         const channelName = this.elements.channelInput.value.trim();
         if (!channelName) {
-            this.addMessage("System", "Please enter a channel name.", "error-message");
+            this.addMessage("System", "Yo, Please enter a channel name.", "error-message");
             return;
         }
 
