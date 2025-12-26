@@ -634,6 +634,23 @@ body {
     margin-bottom: var(--spacing-xl);
 }
 
+.video-fallback-text {
+    text-align: center;
+    margin-top: var(--spacing-md);
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+}
+
+.video-fallback-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.video-fallback-text a:hover {
+    text-decoration: underline;
+}
+
 .video-wrapper-large {
     position: relative;
     width: 100%;
