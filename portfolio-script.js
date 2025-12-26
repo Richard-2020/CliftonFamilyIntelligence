@@ -50,11 +50,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         navLinks.forEach(link => {
+            // Skip special links (external project links)
+            if (link.classList.contains('nav-link-special')) {
+                return;
+            }
+            
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
                 link.classList.add('active');
             }
         });
+        
+        // Set first section as active if at top of page
+        if (window.pageYOffset < 100) {
+            const firstLink = document.querySelector('.nav-link:not(.nav-link-special)');
+            if (firstLink) {
+                navLinks.forEach(link => {
+                    if (!link.classList.contains('nav-link-special')) {
+                        link.classList.remove('active');
+                    }
+                });
+                firstLink.classList.add('active');
+            }
+        }
     }
 
     window.addEventListener('scroll', updateActiveNav);
@@ -80,45 +98,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Photo upload functionality
-    const photoUpload = document.getElementById('photo-upload');
-    const imagePlaceholder = document.querySelector('.hero-image-placeholder');
-    
-    if (photoUpload && imagePlaceholder) {
-        imagePlaceholder.addEventListener('click', () => {
-            photoUpload.click();
-        });
+    // Profile image is now set to default image (suit_selfie_pic.JPG)
+    // No upload functionality needed
 
-        photoUpload.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = 'Profile Photo';
-                    
-                    // Clear existing content
-                    imagePlaceholder.innerHTML = '';
-                    imagePlaceholder.appendChild(img);
-                    
-                    // Store in localStorage
-                    localStorage.setItem('portfolioPhoto', e.target.result);
-                };
-                reader.readAsDataURL(file);
+    // Certification modal/lightbox functionality
+    const certModal = document.getElementById('cert-modal');
+    const certModalImage = document.getElementById('cert-modal-image');
+    const certModalTitle = document.getElementById('cert-modal-title');
+    const certModalClose = document.getElementById('cert-modal-close');
+    const certDisplayAreas = document.querySelectorAll('.cert-display-area');
+
+    // Open modal when certification is clicked
+    certDisplayAreas.forEach(area => {
+        area.addEventListener('click', function() {
+            const img = this.querySelector('.cert-image');
+            const title = this.getAttribute('data-cert');
+            
+            if (img && certModal && certModalImage && certModalTitle) {
+                certModalImage.src = img.getAttribute('data-src') || img.src;
+                certModalTitle.textContent = title;
+                certModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
             }
         });
+    });
 
-        // Load saved photo from localStorage
-        const savedPhoto = localStorage.getItem('portfolioPhoto');
-        if (savedPhoto) {
-            const img = document.createElement('img');
-            img.src = savedPhoto;
-            img.alt = 'Profile Photo';
-            imagePlaceholder.innerHTML = '';
-            imagePlaceholder.appendChild(img);
+    // Close modal functions
+    function closeCertModal() {
+        if (certModal) {
+            certModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
         }
     }
+
+    // Close button
+    if (certModalClose) {
+        certModalClose.addEventListener('click', closeCertModal);
+    }
+
+    // Close on overlay click
+    const certModalOverlay = document.querySelector('.cert-modal-overlay');
+    if (certModalOverlay) {
+        certModalOverlay.addEventListener('click', closeCertModal);
+    }
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && certModal && certModal.classList.contains('active')) {
+            closeCertModal();
+        }
+    });
 
     // Intersection Observer for fade-in animations
     const observerOptions = {
