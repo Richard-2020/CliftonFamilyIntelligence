@@ -1,0 +1,8 @@
+openai
+python-dotenv
+sounddevice
+scipy
+keyboard
+fastapi
+uvicorn[standard]
+python-multipart

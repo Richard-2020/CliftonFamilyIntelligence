@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakEasy Transcriber - Real-Time Speech-to-Text</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1C8.13 1 5 4.13 5 8C5 11.87 8.13 15 12 15C15.87 15 19 11.87 19 8C19 4.13 15.87 1 12 1ZM12 13C9.24 13 7 10.76 7 8C7 5.24 9.24 3 12 3C14.76 3 17 5.24 17 8C17 10.76 14.76 13 12 13Z" fill="currentColor"/>
+                    <path d="M12 16C8.67 16 6 18.67 6 22H18C18 18.67 15.33 16 12 16Z" fill="currentColor"/>
+                </svg>
+                <h1>SpeakEasy Transcriber</h1>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="hero-section">
+                <h2 class="title">Real-Time Speech-to-Text Transcription</h2>
+                <p class="subtitle">Click to record. Speak. Instantly get accurate text output.</p>
+                <p class="description">
+                    Transform your spoken words into written text with cutting-edge AI transcription technology. 
+                    Perfect for notes, meetings, interviews, and more.
+                </p>
+            </div>
+
+            <!-- Recording Controls -->
+            <div class="controls-section">
+                <div class="button-group">
+                    <button id="startBtn" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                        </svg>
+                        Start Recording
+                    </button>
+                    <button id="stopBtn" class="btn btn-secondary" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+                        </svg>
+                        Stop Recording
+                    </button>
+                    <button id="transcribeBtn" class="btn btn-accent" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Transcribe
+                    </button>
+                </div>
+
+                <!-- Recording Indicator -->
+                <div id="recordingIndicator" class="recording-indicator hidden">
+                    <div class="pulse-animation"></div>
+                    <span>Recording...</span>
+                </div>
+            </div>
+
+            <!-- Transcription Result -->
+            <div class="result-section">
+                <div class="result-header">
+                    <h3>Transcription Result</h3>
+                    <div class="result-actions">
+                        <button id="copyBtn" class="btn-icon" title="Copy to clipboard" disabled>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button id="downloadBtn" class="btn-icon" title="Download as text file" disabled>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="resultBox" class="result-box">
+                    <p class="placeholder">Your transcription will appear here...</p>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="loading-indicator hidden">
+                <div class="spinner"></div>
+                <p>Transcribing your audio...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message hidden"></div>
+
+            <!-- New Recording Button -->
+            <div class="reset-section">
+                <button id="resetBtn" class="btn btn-outline hidden">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20.49 9C19.7969 7.30455 18.7279 5.81024 17.3677 4.64498C16.0074 3.47972 14.4066 2.67929 12.6804 2.32151C10.9542 1.96373 9.15093 2.05941 7.47042 2.59835C5.78991 3.13729 4.28357 4.10309 3.08697 5.4078C1.89037 6.71251 1.03647 8.31226 0.595043 10.0622C0.153614 11.8121 0.137504 13.6556 0.548628 15.4155C0.959752 17.1754 1.78545 18.7934 2.95897 20.1203C4.13249 21.4472 5.61933 22.4372 7.28948 22.9982C8.95963 23.5592 10.7602 23.6724 12.4908 23.3275C14.2214 22.9826 15.8266 22.1902 17.1538 21.0204C18.481 19.8506 19.4906 18.3386 20.09 16.62" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Start New Recording
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

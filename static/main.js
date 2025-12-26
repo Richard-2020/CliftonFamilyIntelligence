@@ -18,7 +18,7 @@ class ChatApp {
             sendButton: document.getElementById('send-button'),
             chatContainer: document.getElementById('chat-container'),
             processButton: document.getElementById('process-channel-btn'),
-            output: document.getElementById('output')
+            emptyState: document.querySelector('.chat-empty-state')
         };
 
         // Disable chat interface initially
@@ -35,6 +35,14 @@ class ChatApp {
             }
         });
 
+        // Handle Enter key in channel input
+        this.elements.channelInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.processChannel();
+            }
+        });
+
         // Handle channel processing
         this.elements.processButton.addEventListener('click', () => this.processChannel());
         
@@ -43,15 +51,21 @@ class ChatApp {
     }
 
     loadAndTypeText(text, messageDiv) {
-        
         let currentChar = 0;
-        
         
         const typeChar = () => {
             if (currentChar < text.length) {
                 messageDiv.textContent += text[currentChar];
                 currentChar++;
                 setTimeout(typeChar, this.typingSpeed);
+                
+                // Auto-scroll during typing for long messages
+                if (currentChar % 10 === 0) {
+                    this.scrollToBottom();
+                }
+            } else {
+                // Final scroll after typing completes
+                this.scrollToBottom();
             }
         };
         
@@ -76,13 +90,30 @@ class ChatApp {
     // }
 
     addMessage(sender, text, className = '') {
+        // Hide empty state when first message is added
+        if (this.elements.emptyState && !this.elements.emptyState.classList.contains('hidden')) {
+            this.elements.emptyState.classList.add('hidden');
+        }
+
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender.toLowerCase()}-message ${className}`;
         this.elements.chatContainer.appendChild(messageDiv);
-        this.elements.chatContainer.scrollTop = this.elements.chatContainer.scrollHeight;
+        
+        // Auto-scroll to bottom
+        this.scrollToBottom();
 
+        // Type out the message
         this.loadAndTypeText(text, messageDiv);
-       
+    }
+
+    scrollToBottom() {
+        // Use requestAnimationFrame for smooth scrolling
+        requestAnimationFrame(() => {
+            this.elements.chatContainer.scrollTo({
+                top: this.elements.chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
     }
     
 
@@ -118,18 +149,20 @@ class ChatApp {
         ];
     
         // Check if the channel name is in the allowed list
-        if (!allowedChannels.includes(channelName)) {
-            this.addMessage("System", "Please Enter FamiFed Channel.", "error-message");
-            return;
-        }
+        // if (!allowedChannels.includes(channelName)) {
+        //     this.addMessage("System", "Please Enter FamiFed Channel.", "error-message");
+        //     return;
+        // }
         
 
         this.isProcessing = true;
         this.elements.processButton.disabled = true;
+        this.elements.processButton.classList.add('loading');
+        this.elements.channelInput.disabled = true;
         this.addMessage("System", "Processing channel...", "loading");
 
         try {
-            const response = await fetch('https://cliftonfamilyintelligence-ae9c2e95d097.herokuapp.com/api/channel', {
+            const response = await fetch(`http://localhost:3000/api/channel`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -156,6 +189,8 @@ class ChatApp {
         } finally {
             this.isProcessing = false;
             this.elements.processButton.disabled = false;
+            this.elements.processButton.classList.remove('loading');
+            this.elements.channelInput.disabled = false;
             // Remove loading message
             const loadingMessage = this.elements.chatContainer.querySelector('.loading');
             if (loadingMessage) {
@@ -175,10 +210,11 @@ class ChatApp {
         this.elements.messageInput.value = '';
         this.isProcessing = true;
         this.elements.sendButton.disabled = true;
+        this.elements.sendButton.classList.add('loading');
         this.elements.messageInput.disabled = true;  // Also disable input while processing
     
         try {
-            const response = await fetch(`https://cliftonfamilyintelligence-ae9c2e95d097.herokuapp.com/api/chat/${this.currentSessionId}`, {
+            const response = await fetch(`http://localhost:3000/api/chat/${this.currentSessionId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -206,7 +242,10 @@ class ChatApp {
         } finally {
             this.isProcessing = false;
             this.elements.sendButton.disabled = false;
+            this.elements.sendButton.classList.remove('loading');
             this.elements.messageInput.disabled = false;  // Re-enable input
+            // Focus back on input for better UX
+            this.elements.messageInput.focus();
         }
     }
 

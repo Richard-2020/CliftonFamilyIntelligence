@@ -21,6 +21,7 @@ ALLOWED_ORIGINS = [
     "http://localhost:3000",  # If your frontend runs on port 3000 locally
     "http://localhost:8000",  # If your frontend runs on port 8000 locally
     "https://cliftonfamilyintelligence-ae9c2e95d097.herokuapp.com",  # Your Heroku app URL
+    "null",
     # Add any other frontend URLs that need to access this backend
 ]
 
@@ -39,7 +40,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"]
 )
@@ -49,7 +50,7 @@ genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 
 # Initialize model
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-pro",
+    model_name="gemini-2.5-pro",
     generation_config={
         "temperature": 0.9,
         "top_p": 0.95,

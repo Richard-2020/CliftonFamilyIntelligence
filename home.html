@@ -3,272 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clifton Family AI</title>
-    <style>
-        body {
-            font-family: Georgia, serif;
-            margin: 0;
-            padding: 10px;
-            background-color: #F4F3ED;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #DFEEE4;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .channel-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .chat-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        #chat-container {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 4px;
-            background-color: #fafafa;
-        }
-
-        .message {
-            margin: 8px 0;
-            padding: 8px 12px;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-
-        .user-message {
-            background-color: rgba(0, 0, 255, 0.694);
-            color: white;
-            margin-left: auto;
-        }
-
-        .bot-message {
-            background-color: #e9ecef;
-            color: #212529;
-        }
-
-        .system-message {
-            background-color: #ffc107;
-            color: #000;
-            text-align: center;
-            margin: 8px auto;
-        }
-
-        .error-message {
-            background-color: #dc3545;
-            color: white;
-            text-align: center;
-            margin: 8px auto;
-        }
-
-        .success-message {
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            margin: 8px auto;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
-        }
-
-        #output {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #fff;
-            min-height: 100px;
-        }
-
-/* Your other original CSS rules here */
-
-/* Media Queries for iPhones */
-
-/* iPhone SE, 5, 5S, 5C */
-@media only screen and (min-width: 320px) and (max-width: 359px) {
-    body {
-        padding: 10px;
-    }
-    .container {
-        padding: 10px;
-    }
-    #chat-container {
-        height: 300px;
-    }
-    .message {
-        max-width: 90%;
-    }
-    input[type="text"] {
-        font-size: 14px;
-    }
-    button {
-        font-size: 14px;
-        padding: 6px 12px;
-    }
-}
-
-/* iPhone 6, 7, 8 */
-@media only screen and (min-width: 360px) and (max-width: 374px) {
-    body {
-        padding: 12px;
-    }
-    .container {
-        padding: 15px;
-    }
-    #chat-container {
-        height: 350px;
-    }
-}
-
-/* iPhone X, XS, 11 Pro, 12 Mini */
-@media only screen and (min-width: 375px) and (max-width: 389px) {
-    .container {
-        padding: 15px;
-    }
-    #chat-container {
-        height: 400px;
-    }
-}
-
-/* iPhone 12, 12 Pro, 13, 14 */
-@media only screen and (min-width: 390px) and (max-width: 428px) {
-    .container {
-        padding: 16px;
-    }
-    #chat-container {
-        height: 450px;
-    }
-}
-
-/* iPhone Pro Max models */
-/* @media only screen and (min-width: 428px) and (max-width: 767px) {
-    .container {
-        padding: 18px;
-    }
-    #chat-container {
-        height: 500px;
-    }
-} */
-
-/* Tablets (iPad Mini, iPad) */
-/* @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    body {
-        padding: 30px;
-    }
-    .container {
-        max-width: 90%;
-        padding: 25px;
-    }
-    #chat-container {
-        height: 600px;
-    }
-    .message {
-        max-width: 70%;
-    }
-    input[type="text"] {
-        font-size: 18px;
-        padding: 10px 15px;
-    }
-    button {
-        font-size: 18px;
-        padding: 10px 20px;
-    }
-} */
-
-/* iPad Pro */
-/* @media only screen and (min-width: 1024px) and (max-width: 1366px) {
-    body {
-        padding: 40px;
-    }
-    .container {
-        max-width: 85%;
-        padding: 30px;
-    }
-    #chat-container {
-        height: 700px;
-    }
-    .message {
-        max-width: 60%;
-    }
-    input[type="text"] {
-        font-size: 20px;
-        padding: 12px 18px;
-    }
-    button {
-        font-size: 20px;
-        padding: 12px 24px;
-    }
-} */
-
-/* Portrait and Landscape orientations */
-@media (orientation: landscape) {
-    #chat-container {
-        height: 50vh;
-    }
-}
-    </style>
+    <title>YouTube AI Clipper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-modern.css">
 </head>
 <body>
-    <div class="container">
-        <div class="channel-section">
-            <h2>Clifton Family AI</h2>
-            <div class="input-group">
-                <input type="text" id="channel-input" placeholder="Enter channel name...">
-                <button id="process-channel-btn">Process Channel</button>
+    <!-- Header Section -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="header-title-group">
+                <svg class="header-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="currentColor"/>
+                </svg>
+                <h1 class="app-title">YouTube Channel Clipper</h1>
             </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
         </div>
+        <p class="app-subtitle">Process YouTube channels and chat with AI about their content</p>
+    </header>
 
-        <div class="chat-section">
-            <h2>Chat</h2>
-            <div id="chat-container"></div>
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Channel Processing Section -->
+        <section class="card channel-section">
+            <h2 class="section-title">Channel Processing</h2>
+            <p class="section-description">Enter a YouTube channel name to begin processing</p>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="channel-input" 
+                        class="input-field" 
+                        placeholder="Enter channel name..."
+                        autocomplete="off"
+                    >
+                    <div class="input-focus-line"></div>
+                </div>
+                <button id="process-channel-btn" class="btn btn-primary">
+                    <span class="btn-text">Process Channel</span>
+                    <span class="btn-loader" aria-hidden="true">
+                        <span class="spinner"></span>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section class="card chat-section">
+            <h2 class="section-title">Chat</h2>
+            <div class="chat-container" id="chat-container" role="log" aria-live="polite" aria-label="Chat messages">
+                <div class="chat-empty-state">
+                    <svg class="empty-state-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <p class="empty-state-text">Start a conversation by processing a channel</p>
+                </div>
+            </div>
             
-            <div class="input-group">
-                <input type="text" id="message-input" placeholder="Type your message..." disabled>
-                <button id="send-button" disabled>Send</button>
+            <div class="chat-input-group">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="message-input" 
+                        class="input-field" 
+                        placeholder="Type your message..."
+                        disabled
+                        autocomplete="off"
+                    >
+                    <div class="input-focus-line"></div>
+                </div>
+                <button id="send-button" class="btn btn-primary btn-send" disabled>
+                    <svg class="send-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
             </div>
-        </div>
-
-        <div id="output"></div>
-    </div>
+        </section>
+    </main>
 
     <script src="static/main.js"></script>
+    <script src="theme-toggle.js"></script>
 </body>
 </html>
